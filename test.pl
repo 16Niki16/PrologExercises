@@ -18,12 +18,17 @@ dx(F/G, (FD*G-GD*F)/(G*G)) :- dx(F, FD), dx(G, GD).
 % даден е списък с числа, да се извади подсписък с всички
 % прости числа от оригиналния списък
 
-% сортиране на лист
-
+% проверка дали даден лист е сротиран
 sorted([]).
 sorted([_]).
 sorted([A,B|T]) :- A #=< B, sorted([B|T]).
 
+% намира елементите на четна позиция в списък
 evenPositioned([],[]).
 evenPositioned([],[_]). 
 evenPositioned([X|T], [Y,X|Z]):- evenPositioned(T, Z).  
+
+%намира дали А е част от списъка
+element(A, [A|_]).
+element(A, [_|T]):- element(A, T).
+
