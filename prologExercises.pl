@@ -32,3 +32,24 @@ evenPositioned([X|T], [Y,X|Z]):- evenPositioned(T, Z).
 element(A, [A|_]).
 element(A, [_|T]):- element(A, T).
 
+%конкатенация на списъци
+concat([], Y, Y).
+concat([H|X], Y, [H|Z]):- concat(X, Y, Z).
+
+%префикс
+prefix(X,Y):-concat(X,_,Y).
+
+%първи елемент
+first(A, [A|X]).
+
+%ротация
+rotation(X, Y):- concat(A,B,X), concat(B,A,Y).
+
+%%%%%%%Пермутация%%%%%%%
+
+%добавяне на елемент в списък
+append(A, X, Z):- concat(B, C, X), concat(B, [A|C], Z).
+
+%пермутация
+permutation([], []).
+permutation([A|X], Y):- permutation(X, Z), append(A, Z, Y).
