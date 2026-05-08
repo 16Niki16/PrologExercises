@@ -42,6 +42,10 @@ prefix(X,Y):-concat(X,_,Y).
 %първи елемент
 first(A, [A|X]).
 
+%последен елемент
+lastElement([A], A).
+lastElement([_|X], A):- lastElement(X, A).
+
 %ротация
 rotation(X, Y):- concat(A,B,X), concat(B,A,Y).
 
@@ -59,3 +63,7 @@ permutation([A|X], Y):- permutation(X, Z), append(A, Z, Y).
 lengthList([], N):- N #= 0.
 lengthList([A|X], N):- N #>= 1, N #= N1 + 1, lengthList(X, N1).
 
+sumElements([], N):- N #= 0.
+sumElements([A|X], N):- N#=N1 + A, sumElements(X, N1). 
+
+nthElement(X, A, N):- concat(Q,P,X), lengthList(Q, N), lastElement(Q, A).
