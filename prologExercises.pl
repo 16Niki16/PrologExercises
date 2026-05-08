@@ -53,3 +53,9 @@ append(A, X, Z):- concat(B, C, X), concat(B, [A|C], Z).
 %пермутация
 permutation([], []).
 permutation([A|X], Y):- permutation(X, Z), append(A, Z, Y).
+
+%%%Целочислена аритметика%%%
+
+lengthList([], N):- N #= 0.
+lengthList([A|X], N):- N #>= 1, N #= N1 + 1, lengthList(X, N1).
+
