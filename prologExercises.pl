@@ -53,3 +53,13 @@ append(A, X, Z):- concat(B, C, X), concat(B, [A|C], Z).
 %пермутация
 permutation([], []).
 permutation([A|X], Y):- permutation(X, Z), append(A, Z, Y).
+
+%%%%%целочислена аритметика%%%%%
+
+% X #= Y       X е равно на Y
+% X #\= Y      X е различно от Y
+% X #> Y       X е по-голямо от Y
+% X #< Y       X е по-малко от Y
+% X #>= Y      X е по-голямо или равно от Y
+% X #=< Y      X е по-малко или равно от Y
+% X #<= Y      грешка
