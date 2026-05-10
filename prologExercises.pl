@@ -76,3 +76,13 @@ sumElements([], N):- N #= 0.
 sumElements([A|X], N):- N#=N1 + A, sumElements(X, N1). 
 
 nthElement(X, A, N):- concat(Q,P,X), lengthList(Q, N), lastElement(Q, A).
+
+factorial(N, S):- N #= 1, S #= 1.
+factorial(N, S):- N #> 1, S #=N*S1, N1 #= N - 1, factorial(N1, S1).
+
+%%%%% безкрайни генератори %%%%%%
+
+%НАИЗУСТ дефиниция на генератор на естествените числа
+
+nat(N) :- N #= 0; nat(N-1).
+
