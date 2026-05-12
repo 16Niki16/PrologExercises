@@ -73,7 +73,7 @@ lengthList([], N):- N #= 0.
 lengthList([A|X], N):- N #>= 1, N #= N1 + 1, lengthList(X, N1).
 
 sumElements([], N):- N #= 0.
-sumElements([A|X], N):- N#=N1 + A, sumElements(X, N1). 
+sumElements([A|X], N):- N #= N1 + A, sumElements(X, N1). 
 
 nthElement(X, A, N):- concat(Q,P,X), lengthList(Q, N), lastElement(Q, A).
 
@@ -86,3 +86,16 @@ factorial(N, S):- N #> 1, S #=N*S1, N1 #= N - 1, factorial(N1, S1).
 
 nat(N) :- N #= 0; nat(N-1).
 
+%%% допълнителни възможности на пролог %%%
+
+% отрицание not(p(X))
+
+primeNumber(P):- P #>= 2, not((P #= A*B, A in 2..P, B in 2..P, label([A,B]))). 
+
+% универсален квантор с импликация
+% forall(p(X), q(X)).
+
+% списък от всички решения
+
+% findall(A, P, X) е приблизително същото като X = {A: P}
+%                    т.е. X става списък от всички A, за които P е вярно.
