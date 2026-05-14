@@ -99,3 +99,49 @@ primeNumber(P):- P #>= 2, not((P #= A*B, A in 2..P, B in 2..P, label([A,B]))).
 
 % findall(A, P, X) е приблизително същото като X = {A: P}
 %                    т.е. X става списък от всички A, за които P е вярно.
+
+% сортиране
+sortAlg(X, Y):- permutation(X,Y), forall(concat(_ ,[A,B|_], Y), A #=<B).
+
+member(A, [A|_]).
+member(A, [_|X]):- member(A, X).
+
+% p24(+XX) - за всеки два елемента X и Y на XX в XX съществува елемент Z,
+%            чиито елементи са точно общите елементи на X и Y.
+
+p24(XX):- forall((member(A, XX), member(B, XX)),
+                    (member(C, XX), (
+                        forall(member(K, C), (member(K, A), member(K, B))),
+                        forall((member(K, A), member(K, B)), member(K,C))
+                    ))).
+
+                    
+% p22(+N, XX) - XX e списък от списъци от естествени числа, такива че за
+%               всеки два елемента X и Y на XX в XX има елемент Z, чиито
+%               елементи са точно общите елементи на X и Y.  Дължината на
+%               XX е по-малка от N, дължините на елементите на XX са
+%               по-малки от N, елементите на елементите на XX са по-малки
+%               от N.
+
+isLengthSmaller(N, X):- lengthList(X, N1), N #>= N1.
+
+smallerElements(N, []). 
+smallerElements(N, [A|X]):- A #=< N, smallerElements(N, X).
+
+membersLength(N, []).
+membersLength(N, [A|X]):- isLengthSmaller(N, A), smallerElements(N, A), membersLength(N, X).
+
+p22(N, XX):- 
+            isLengthSmaller(N, XX),
+            membersLength(N, XX),
+            p24(XX).
+
+% Задача.  Да се дефинира предикат pppp(X), който по даден списък X от
+% списъци от числа проверява дали всеки предпоследен елемент на елемент на
+% четна позиция е просто число.
+
+% pppp(XX) - всеки предпоследен елемент на елемент на XX на четна позиция
+%            е просто число
+%
+% Условие: XX е известен списък
+
