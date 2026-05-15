@@ -145,3 +145,34 @@ p22(N, XX):-
 %
 % Условие: XX е известен списък
 
+evenElements([], []).
+evenElements([_], []).
+evenElements([A,B|X], [B|Y]):- evenElements(X, Y).
+
+predPosledenElement(A, [A,B]).
+predPosledenElement(A, [_|X]):- predPosledenElement(A, X).
+
+pppp(XX):- evenElements(XX, YY),
+           forall((member(Y, YY), predPosledenElement(A, Y)) , primeNumber(A)).
+
+% p20160903a(L, N) - по списък от естествени числа L и естествено число N
+% проверява дали има N елемента a[1]..a[N] на L, чийто НОД се различава от
+% НОД на кои да е N-1 елемента b[1]..b[N-1] на L.
+
+%p2016(L, N):- 
+
+delitel(N, K):- N #= K * _.
+
+odList(N, X):- forall(member(A, X), delitel(A, N)).
+
+nodList(N, X):- findall(A, odList(A, X), Y),
+                maxList(N, Y).
+
+maxList(A, []).
+maxList(A, [B|X]):- A #>= B, maxList(A, X).
+
+% извадка(X, Y) - X е извадка от Y, т.е. може да се получи „задраскаме“
+%                 някои елементи на Y
+%
+% Условие: известно е ограничение отгоре за дължината на Y
+
