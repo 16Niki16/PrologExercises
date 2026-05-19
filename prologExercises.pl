@@ -176,3 +176,13 @@ maxList(A, [B|X]):- A #>= B, maxList(A, X).
 %
 % Условие: известно е ограничение отгоре за дължината на Y
 
+izvadka([], _). 
+izvadka([A|X], [A|Y]):- izvadka(X, Y).
+izvadka(X, [_|Y]):- izvadka(X,Y).
+
+% А се поглъща от B (списъци от числа), ако сборът на всеки два елемента на
+% A се съдържа в B.
+
+podmnojestvo(X, Y):-forall(member(A, X), member(A, Y)).
+
+poglyshta(X, Y):- forall(podmnojestvo(), (C #= A + B, member(C, Y)))
